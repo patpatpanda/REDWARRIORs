@@ -1,0 +1,9 @@
+﻿@page
+@model Panda.Pages.Talang.IndexModel
+@{
+    ViewData["Title"] = "Talang-profil";
+}
+
+<h2>Din Talang-profil</h2>
+<p><strong>Namn:</strong> @Model.CurrentUser.FullName</p>
+<p><strong>E-post:</strong> @Model.CurrentUser.Email</p>

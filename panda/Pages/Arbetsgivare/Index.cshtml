@@ -1,0 +1,26 @@
+﻿@page
+@model Panda.Pages.Arbetsgivare.IndexModel
+@{
+    ViewData["Title"] = "Arbetsgivare - användare";
+}
+
+<h2>Alla användare</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Namn</th>
+            <th>E-post</th>
+            <th>UserId</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.AllUsers)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>@user.Id</td>
+            </tr>
+        }
+    </tbody>
+</table>

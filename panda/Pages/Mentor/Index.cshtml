@@ -1,0 +1,9 @@
+﻿@page
+@model Panda.Pages.Mentor.IndexModel
+@{
+    ViewData["Title"] = "Mentor-profil";
+}
+
+<h2>Din Mentor-profil</h2>
+<p><strong>Namn:</strong> @Model.CurrentUser.FullName</p>
+<p><strong>E-post:</strong> @Model.CurrentUser.Email</p>
