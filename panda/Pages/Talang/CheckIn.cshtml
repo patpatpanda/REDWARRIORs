@@ -1,0 +1,90 @@
+﻿@page "{assignmentId:int}"
+@model Panda.Pages.Talang.CheckInModel
+@{
+    ViewData["Title"] = "Veckorapport (Talang)";
+}
+
+<h2>Veckorapport – @Model.Assignment.Employer.FullName / Mentor: @Model.Assignment.Mentor.FullName</h2>
+
+<form method="post" class="mt-3">
+    <input type="hidden" asp-for="AssignmentId" />
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Vecka som börjar</label>
+            <input asp-for="WeekStart" type="date" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Humör</label>
+            <select asp-for="Mood" class="form-select">
+                <option value="1">😞 Mycket dåligt</option>
+                <option value="2">🙁 Dåligt</option>
+                <option value="3">😐 OK</option>
+                <option value="4">🙂 Bra</option>
+                <option value="5">😄 Toppen</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Belastning</label>
+            <select asp-for="Workload" class="form-select">
+                <option value="1">Underbelastad</option>
+                <option value="2">Balans</option>
+                <option value="3">Överbelastad</option>
+            </select>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Det som gick bra</label>
+            <textarea asp-for="WhatWentWell" rows="3" class="form-control"></textarea>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Hinder</label>
+            <textarea asp-for="Blockers" rows="3" class="form-control"></textarea>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Behov av hjälp</label>
+            <textarea asp-for="HelpNeeded" rows="3" class="form-control"></textarea>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Mål till nästa vecka</label>
+            <textarea asp-for="GoalsNextWeek" rows="3" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label class="form-label">Uppgifter slutförda</label>
+            <input asp-for="TasksDone" type="number" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Code reviews</label>
+            <input asp-for="CodeReviewsDone" type="number" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Möten</label>
+            <input asp-for="MeetingsCount" type="number" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Mentorstimmar</label>
+            <input asp-for="MentoringHours" type="number" step="0.5" class="form-control" />
+        </div>
+    </div>
+
+    <hr />
+
+    <h5>Tekniska områden (1–5)</h5>
+    <div class="row g-3">
+        <div class="col-md-2"><label>C#</label><input asp-for="SkillCSharp" type="number" min="1" max="5" class="form-control" /></div>
+        <div class="col-md-2"><label>.NET</label><input asp-for="SkillDotNet" type="number" min="1" max="5" class="form-control" /></div>
+        <div class="col-md-2"><label>SQL</label><input asp-for="SkillSql" type="number" min="1" max="5" class="form-control" /></div>
+        <div class="col-md-3"><label>Frontend</label><input asp-for="SkillFrontend" type="number" min="1" max="5" class="form-control" /></div>
+        <div class="col-md-3"><label>Cloud</label><input asp-for="SkillCloud" type="number" min="1" max="5" class="form-control" /></div>
+    </div>
+
+    <button class="btn btn-success mt-3">Spara veckorapport</button>
+</form>

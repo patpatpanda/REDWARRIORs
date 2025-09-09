@@ -1,0 +1,28 @@
+﻿@page
+@model Panda.Pages.Arbetsgivare.Assignments.CreateModel
+@{
+    ViewData["Title"] = "Skapa nytt uppdrag";
+}
+
+<h2>Skapa nytt uppdrag</h2>
+
+<form method="post">
+    <div class="form-group mb-3">
+        <label for="TalentId">Välj Talang</label>
+        <select asp-for="TalentId" class="form-control"
+                asp-items="@(new SelectList(Model.Talents, "Id", "FullName"))">
+            <option value="">-- Välj Talang --</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="MentorId">Välj Mentor</label>
+        <select asp-for="MentorId" class="form-control"
+                asp-items="@(new SelectList(Model.Mentors, "Id", "FullName"))">
+            <option value="">-- Välj Mentor --</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Skapa uppdrag</button>
+    <a asp-page="/Arbetsgivare/Index" class="btn btn-secondary">Avbryt</a>
+</form>

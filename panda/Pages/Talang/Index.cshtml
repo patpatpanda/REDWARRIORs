@@ -1,9 +1,29 @@
 ﻿@page
 @model Panda.Pages.Talang.IndexModel
 @{
-    ViewData["Title"] = "Talang-profil";
+    ViewData["Title"] = "Talang Dashboard";
 }
 
-<h2>Din Talang-profil</h2>
-<p><strong>Namn:</strong> @Model.CurrentUser.FullName</p>
-<p><strong>E-post:</strong> @Model.CurrentUser.Email</p>
+<h2>Dina uppdrag</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Arbetsgivare</th>
+            <th>Mentor</th>
+            <th>Start</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model.Assignments)
+        {
+            <tr>
+                <td>@a.Employer.FullName</td>
+                <td>@a.Mentor.FullName</td>
+                <td>@a.StartDate.ToShortDateString()</td>
+                <td><a asp-page="/Assignments/Details" asp-route-id="@a.Id">Visa feedback</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

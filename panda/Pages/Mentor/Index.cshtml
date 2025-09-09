@@ -1,9 +1,43 @@
 ﻿@page
 @model Panda.Pages.Mentor.IndexModel
 @{
-    ViewData["Title"] = "Mentor-profil";
+    ViewData["Title"] = "Mentor – mina uppdrag";
 }
 
-<h2>Din Mentor-profil</h2>
-<p><strong>Namn:</strong> @Model.CurrentUser.FullName</p>
-<p><strong>E-post:</strong> @Model.CurrentUser.Email</p>
+<h2>Mina mentorskap</h2>
+
+@if (!Model.Assignments.Any())
+{
+    <p><em>Inga aktiva uppdrag just nu.</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Arbetsgivare</th>
+                <th>Talang</th>
+                <th>Start</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model.Assignments)
+            {
+                <tr>
+                    <td>@a.Employer.FullName</td>
+                    <td>@a.Talent.FullName</td>
+                    <td>@a.StartDate.ToShortDateString()</td>
+                    <td>
+                        <a asp-page="/Mentor/CheckIn" asp-route-assignmentId="@a.Id" class="btn btn-sm btn-success">
+                            Veckorapport
+                        </a>
+                        <a asp-page="/Assignments/Details" asp-route-id="@a.Id" class="btn btn-sm btn-outline-primary ms-1">
+                            Visa feedback
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

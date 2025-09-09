@@ -1,26 +1,38 @@
 ﻿@page
 @model Panda.Pages.Arbetsgivare.IndexModel
 @{
-    ViewData["Title"] = "Arbetsgivare - användare";
+    ViewData["Title"] = "Arbetsgivare Dashboard";
 }
 
-<h2>Alla användare</h2>
+<h2>Aktiva uppdrag</h2>
 <table class="table">
-    <thead>
+    ...
+    @foreach (var a in Model.Assignments.Where(x => x.EndDate == null))
+    {
         <tr>
-            <th>Namn</th>
-            <th>E-post</th>
-            <th>UserId</th>
+            <td>@a.Talent.FullName</td>
+            <td>@a.Mentor.FullName</td>
+            <td>@a.StartDate.ToShortDateString()</td>
+            <td>
+                <a asp-page="/Assignments/Details" asp-route-id="@a.Id">Visa feedback</a> |
+                <a asp-page="/Arbetsgivare/Assignments/Edit" asp-route-id="@a.Id">Redigera</a> |
+                <a asp-page="/Arbetsgivare/Assignments/Delete" asp-route-id="@a.Id">Radera</a>
+            </td>
         </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.AllUsers)
-        {
-            <tr>
-                <td>@user.FullName</td>
-                <td>@user.Email</td>
-                <td>@user.Id</td>
-            </tr>
-        }
-    </tbody>
+    }
 </table>
+
+<h2>Avslutade uppdrag</h2>
+<table class="table">
+    ...
+    @foreach (var a in Model.Assignments.Where(x => x.EndDate != null))
+    {
+        <tr>
+            <td>@a.Talent.FullName</td>
+            <td>@a.Mentor.FullName</td>
+            <td>@a.StartDate.ToShortDateString() - @a.EndDate?.ToShortDateString()</td>
+            <td><a asp-page="/Assignments/Details" asp-route-id="@a.Id">Visa historik</a></td>
+        </tr>
+    }
+</table>
+

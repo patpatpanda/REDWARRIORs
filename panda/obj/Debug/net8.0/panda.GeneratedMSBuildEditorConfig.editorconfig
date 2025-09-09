@@ -54,8 +54,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Nils-/source/repos/panda/panda/Pages/Arbetsgivare/Assignments/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXJiZXRzZ2l2YXJlXEFzc2lnbm1lbnRzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nils-/source/repos/panda/panda/Pages/Arbetsgivare/Assignments/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXJiZXRzZ2l2YXJlXEFzc2lnbm1lbnRzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nils-/source/repos/panda/panda/Pages/Arbetsgivare/Assignments/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXJiZXRzZ2l2YXJlXEFzc2lnbm1lbnRzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Nils-/source/repos/panda/panda/Pages/Arbetsgivare/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXJiZXRzZ2l2YXJlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nils-/source/repos/panda/panda/Pages/Assignments/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzaWdubWVudHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Nils-/source/repos/panda/panda/Pages/Error.cshtml]
@@ -64,6 +80,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Nils-/source/repos/panda/panda/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nils-/source/repos/panda/panda/Pages/Mentor/CheckIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVudG9yXENoZWNrSW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Nils-/source/repos/panda/panda/Pages/Mentor/Index.cshtml]
@@ -80,6 +100,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Nils-/source/repos/panda/panda/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Nils-/source/repos/panda/panda/Pages/Talang/CheckIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFsYW5nXENoZWNrSW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Nils-/source/repos/panda/panda/Pages/Talang/Index.cshtml]

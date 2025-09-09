@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("panda")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3dca55abf7b91aba38bfd222bbacfb75a4e44bea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1bf23f89fe7e7ebf48cb85ab264d6adbf0727c3b")]
 [assembly: System.Reflection.AssemblyProductAttribute("panda")]
 [assembly: System.Reflection.AssemblyTitleAttribute("panda")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

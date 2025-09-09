@@ -1,0 +1,15 @@
+﻿@page "{id:int}"
+@model Panda.Pages.Arbetsgivare.Assignments.DeleteModel
+@{
+    ViewData["Title"] = "Radera uppdrag";
+}
+
+<h2>Är du säker på att du vill radera uppdraget?</h2>
+
+<p><strong>Talang:</strong> @Model.Assignment.Talent.FullName</p>
+<p><strong>Mentor:</strong> @Model.Assignment.Mentor.FullName</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Radera</button>
+    <a asp-page="/Arbetsgivare/Index" class="btn btn-secondary">Avbryt</a>
+</form>

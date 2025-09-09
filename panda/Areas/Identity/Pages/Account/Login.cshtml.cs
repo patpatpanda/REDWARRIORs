@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Panda.Data;
 using Panda.Models;
 
 namespace Panda.Areas.Identity.Pages.Account
@@ -12,15 +14,18 @@ namespace Panda.Areas.Identity.Pages.Account
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly ApplicationDbContext _db;
 
         public LoginModel(
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
+             ApplicationDbContext db,
             ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
+            _db = db;
         }
 
         [BindProperty]
@@ -79,31 +84,36 @@ namespace Panda.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-
-                    // hämta user-objektet
                     var user = await _userManager.FindByEmailAsync(Input.Email);
-                    if (user != null)
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    if (roles.Contains("Arbetsgivare"))
                     {
-                        if (await _userManager.IsInRoleAsync(user, "Talang"))
-                            return LocalRedirect("/Talang");
+                        return LocalRedirect("/Arbetsgivare");
+                    }
+                    else if (roles.Contains("Mentor"))
+                    {
+                        return LocalRedirect("/Mentor");
+                    }
+                    else if (roles.Contains("Talang"))
+                    {
+                        var assignment = await _db.Assignments
+                            .FirstOrDefaultAsync(a => a.TalentId == user.Id && a.EndDate == null);
 
-                        if (await _userManager.IsInRoleAsync(user, "Mentor"))
-                            return LocalRedirect("/Mentor");
-
-                        else if (await _userManager.IsInRoleAsync(user, "Arbetsgivare"))
+                        if (assignment != null)
                         {
-                            return LocalRedirect("/Arbetsgivare");
+                            return LocalRedirect($"/Assignments/Details/{assignment.Id}");
                         }
-                        else if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        else
                         {
-                            return LocalRedirect("/Admin");
+                            return LocalRedirect("/Talang");
                         }
                     }
 
-                    // fallback
+
                     return LocalRedirect(returnUrl);
                 }
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });

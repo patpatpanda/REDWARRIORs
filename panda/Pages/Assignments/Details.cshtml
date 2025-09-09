@@ -1,0 +1,169 @@
+﻿@page "{id:int}"
+@model Panda.Pages.Assignments.DetailsModel
+@using panda.Models
+
+<h2>Uppdrag: @Model.Assignment.Id</h2>
+
+<p>
+    <strong>Arbetsgivare:</strong> @Model.Assignment.Employer.FullName<br />
+    <strong>Mentor:</strong> @Model.Assignment.Mentor.FullName<br />
+    <strong>Talang:</strong> @Model.Assignment.Talent.FullName
+</p>
+
+<hr />
+
+<h3>Status</h3>
+<div class="alert @(Model.Summary.Level == RiskLevel.Green ? "alert-success" :
+                    Model.Summary.Level == RiskLevel.Amber ? "alert-warning" : "alert-danger")">
+
+    <div class="d-flex justify-content-between">
+        <strong>@Model.Summary.Level</strong>
+        <span class="text-muted">Vecka fr.o.m. @Model.Summary.WeekStart.ToString("yyyy-MM-dd")</span>
+    </div>
+
+    <ul class="mb-0 mt-2">
+        @foreach (var r in Model.Summary.Reasons)
+        {
+            <li>@r</li>
+        }
+    </ul>
+
+    @if (Model.Summary.Suggestions.Any())
+    {
+        <hr class="my-2" />
+        <div>
+            <strong>Förslag:</strong>
+            <ul class="mb-0">
+                @foreach (var s in Model.Summary.Suggestions)
+                {
+                    <li>@s</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+<hr />
+
+@if (User.IsInRole("Talang"))
+{
+    <h4>Mina senaste veckorapporter</h4>
+    @if (Model.RecentCheckIns.Any())
+    {
+        <table class="table table-sm align-middle">
+            <thead>
+                <tr>
+                    <th>Vecka</th>
+                    <th>Humör</th>
+                    <th>Belastning</th>
+                    <th>Uppg.</th>
+                    <th>CR</th>
+                    <th>Möten</th>
+                    <th>Mentor (h)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ci in Model.RecentCheckIns.OrderByDescending(ci => ci.WeekStart))
+                {
+                    var status = Model.GetWeekStatus(ci.WeekStart);
+
+                    <tr>
+                        <td>@ci.WeekStart.ToString("yyyy-MM-dd")</td>
+                        <td>@ci.Mood</td>
+                        <td>@ci.Workload</td>
+                        <td>@ci.TasksDone</td>
+                        <td>@ci.CodeReviewsDone</td>
+                        <td>@ci.MeetingsCount</td>
+                        <td>@ci.MentoringHours</td>
+                        <td>
+                            @if (status == "Båda rapporterat")
+                            {
+                                <span class="badge bg-success">@status</span>
+                            }
+                            else if (status.Contains("ej fyllt i"))
+                            {
+                                <span class="badge bg-warning text-dark">@status</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">@status</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p><em>Ingen veckorapport inlämnad än.</em></p>
+    }
+
+    <a asp-page="/Talang/CheckIn" asp-route-assignmentId="@Model.Assignment.Id"
+       class="btn btn-success mt-3">📝 Lämna veckorapport</a>
+}
+
+@if (User.IsInRole("Mentor"))
+{
+    <h3>Mina senaste veckorapporter</h3>
+    @if (Model.RecentMentorCheckIns.Any())
+    {
+        <table class="table table-sm align-middle">
+            <thead>
+                <tr>
+                    <th>Vecka</th>
+                    <th>Helhetsbedömning</th>
+                    <th>Prestation</th>
+                    <th>Samarbete</th>
+                    <th>Takt</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ci in Model.RecentMentorCheckIns.OrderByDescending(ci => ci.WeekStart))
+                {
+                    var status = Model.GetWeekStatus(ci.WeekStart);
+
+                    <tr>
+                        <td>@ci.WeekStart.ToString("yyyy-MM-dd")</td>
+                        <td>@ci.Assessment</td>
+                        <td>@ci.Performance</td>
+                        <td>@ci.Collaboration</td>
+                        <td>@ci.Pace</td>
+                        <td>
+                            @if (status == "Båda rapporterat")
+                            {
+                                <span class="badge bg-success">@status</span>
+                            }
+                            else if (status.Contains("ej fyllt i"))
+                            {
+                                <span class="badge bg-warning text-dark">@status</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">@status</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p><em>Ingen veckorapport inlämnad än.</em></p>
+    }
+
+    <a asp-page="/Mentor/CheckIn" asp-route-assignmentId="@Model.Assignment.Id"
+       class="btn btn-primary mt-3">🧭 Lämna veckorapport</a>
+}
+
+@if (User.IsInRole("Arbetsgivare"))
+{
+    <h3>Sammanfattning</h3>
+    <p class="text-muted">
+        Arbetsgivaren ser endast aggregerad status (ej rådata) av GDPR-skäl.
+        Kontakta mentor eller talang för detaljer.
+    </p>
+}

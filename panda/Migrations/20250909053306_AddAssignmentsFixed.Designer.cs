@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Panda.Data;
 
@@ -11,9 +12,11 @@ using Panda.Data;
 namespace panda.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250909053306_AddAssignmentsFixed")]
+    partial class AddAssignmentsFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -282,19 +285,12 @@ namespace panda.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Rating")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -303,154 +299,6 @@ namespace panda.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("FeedbackEntries");
-                });
-
-            modelBuilder.Entity("panda.Models.MentorCheckIn", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Assessment")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AssignmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Collaboration")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MentorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Observations")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<int>("Pace")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Performance")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Recommendations")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("Risks")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("WeekStart")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MentorId");
-
-                    b.HasIndex("AssignmentId", "MentorId", "WeekStart")
-                        .IsUnique();
-
-                    b.ToTable("MentorCheckIns");
-                });
-
-            modelBuilder.Entity("panda.Models.TalentCheckIn", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AssignmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Blockers")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<int>("CodeReviewsDone")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GoalsNextWeek")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("HelpNeeded")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<int>("MeetingsCount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("MentoringHours")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Mood")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillCSharp")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillCloud")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillDotNet")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillFrontend")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillSql")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TalentId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TasksDone")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("WeekStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("WhatWentWell")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<int>("Workload")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TalentId");
-
-                    b.HasIndex("AssignmentId", "TalentId", "WeekStart")
-                        .IsUnique();
-
-                    b.ToTable("TalentCheckIns");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -507,19 +355,19 @@ namespace panda.Migrations
             modelBuilder.Entity("panda.Models.Assignment", b =>
                 {
                     b.HasOne("Panda.Models.AppUser", "Employer")
-                        .WithMany("AssignmentsAsEmployer")
+                        .WithMany()
                         .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Panda.Models.AppUser", "Mentor")
-                        .WithMany("AssignmentsAsMentor")
+                        .WithMany()
                         .HasForeignKey("MentorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Panda.Models.AppUser", "Talent")
-                        .WithMany("AssignmentsAsTalent")
+                        .WithMany()
                         .HasForeignKey("TalentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -548,53 +396,6 @@ namespace panda.Migrations
                     b.Navigation("Assignment");
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("panda.Models.MentorCheckIn", b =>
-                {
-                    b.HasOne("panda.Models.Assignment", "Assignment")
-                        .WithMany()
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Panda.Models.AppUser", "Mentor")
-                        .WithMany()
-                        .HasForeignKey("MentorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Assignment");
-
-                    b.Navigation("Mentor");
-                });
-
-            modelBuilder.Entity("panda.Models.TalentCheckIn", b =>
-                {
-                    b.HasOne("panda.Models.Assignment", "Assignment")
-                        .WithMany()
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Panda.Models.AppUser", "Talent")
-                        .WithMany()
-                        .HasForeignKey("TalentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Assignment");
-
-                    b.Navigation("Talent");
-                });
-
-            modelBuilder.Entity("Panda.Models.AppUser", b =>
-                {
-                    b.Navigation("AssignmentsAsEmployer");
-
-                    b.Navigation("AssignmentsAsMentor");
-
-                    b.Navigation("AssignmentsAsTalent");
                 });
 
             modelBuilder.Entity("panda.Models.Assignment", b =>
